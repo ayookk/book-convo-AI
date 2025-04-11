@@ -26,13 +26,13 @@ app.secret_key = os.urandom(24)
 # Initialize Google Cloud Storage client
 storage_client = storage.Client()
 
-# Create bucket names - these should be unique across all of Google Cloud
+
 PROJECT_ID = os.environ.get('GOOGLE_CLOUD_PROJECT', 'book-convo-ai')
 UPLOADS_BUCKET = f"{PROJECT_ID}-uploads"
 BOOKS_BUCKET = f"{PROJECT_ID}-books"
 AUDIO_BUCKET = f"{PROJECT_ID}-responses"
 
-# Create buckets if they don't exist
+
 def ensure_bucket_exists(bucket_name):
     try:
         bucket = storage_client.get_bucket(bucket_name)
@@ -43,7 +43,7 @@ def ensure_bucket_exists(bucket_name):
             logger.info(f"Created bucket {bucket_name}")
         except Exception as e:
             logger.error(f"Error creating bucket {bucket_name}: {str(e)}")
-            # Fall back to temporary local storage
+            
             return False
     return True
 
@@ -51,7 +51,7 @@ def ensure_bucket_exists(bucket_name):
 for bucket_name in [UPLOADS_BUCKET, BOOKS_BUCKET, AUDIO_BUCKET]:
     ensure_bucket_exists(bucket_name)
 
-# Create temporary local directories for processing
+
 TEMP_FOLDER = tempfile.gettempdir()
 UPLOAD_FOLDER = os.path.join(TEMP_FOLDER, 'uploads')
 BOOK_FOLDER = os.path.join(TEMP_FOLDER, 'books')
@@ -238,10 +238,10 @@ def extract_text_from_pdf(pdf_path_or_content):
                 if page_text:  # Only add non-empty pages
                     text += page_text + "\n"
         
-        # Remove any file paths or system-specific information
+        
         text = re.sub(r'file:///[^\s]+', '', text)
         
-        # Clean up Project Gutenberg headers and footers
+        
         text = re.sub(r'(?i)Project Gutenberg.*?START OF (THE|THIS) (PROJECT GUTENBERG|GUTENBERG PROJECT)', 'START OF THE BOOK', text, flags=re.DOTALL)
         text = re.sub(r'(?i)End of (the |)Project Gutenberg.*', 'END OF THE BOOK', text, flags=re.DOTALL)
         
