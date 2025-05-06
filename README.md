@@ -1,1 +1,1 @@
-A voice-based AI application that allows users to upload any PDF book and ask spoken questions about its content. The app uses Google Cloud services to transcribe, analyze, and respond with context-aware answers, turning passive reading into interactive learning.
+📢 Book Conversational AI app : A voice-based AI application that allows users to upload any PDF book and ask spoken questions about its content. The app uses Google Cloud services to transcribe, analyze, and respond with context-aware answers, turning passive reading into interactive learning.
